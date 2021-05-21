@@ -19,6 +19,10 @@ def returnFipsDataFrame():
             postalCode.append(data.text.replace("\r\n\t\t\t\t", ""))
         else:
             fips.append(data.text.replace("\r\n\t\t\t\t", ""))
+    
+    stateName.insert(8, 'District of Columbia')
+    postalCode.insert(8, 'DC')
+    fips.insert(8, 11)
 
     data = {
         "state name": stateName,
@@ -27,4 +31,7 @@ def returnFipsDataFrame():
     }
 
     df = pd.DataFrame(data)
+    df.drop(df.index[[51, 52, 53, 55]], inplace=True)
+    df.sort_values('state name', ascending=True, inplace=True)
+
     return df
