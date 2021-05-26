@@ -12,7 +12,6 @@ drDf['Week'] = pd.to_datetime(drDf['Week'], format='%Y-%m-%d')
 drDf.drop(columns=['State', 'Unnamed: 0'], axis=1, inplace=True)
 
 drDf = drDf.set_index('Week').groupby(['Fips']).resample('M').mean().reset_index(level=1)
-drDf['LEVEL'] = (drDf['D4'] * 5 + (drDf['D3-D4'] - drDf['D4']) * 4 + (drDf['D2-D4'] - drDf['D3-D4']) * 3 + (drDf['D1-D4'] - drDf['D2-D4']) * 2 + (drDf['D0-D4'] - drDf['D1-D4'])) /100
 
 drDf = drDf.rename_axis(None)
 

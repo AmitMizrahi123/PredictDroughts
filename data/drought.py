@@ -64,4 +64,6 @@ for df in dfList:
     dataframe = dataframe.append(df)
 dataframe.reset_index(drop=True, inplace=True)
 
+dataframe['LEVEL'] = dataframe['DSCI'] // 100
+
 dataframe.to_csv('files/drought.csv')
