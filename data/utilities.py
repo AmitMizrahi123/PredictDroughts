@@ -12,3 +12,12 @@ def getLonAndLat():
     lon = table['longitude'].to_list()
     lat = table['latitude'].to_list()
     return lon, lat
+
+def returnLastWeekDate():
+    df = pd.read_csv('files/drought.csv')
+    return df['Week'][0]
+
+def returnNumberOfWeeks():
+    df = pd.read_csv('files/drought.csv')
+    weekLines = len(df.loc[df['State'] == 'Alabama'])
+    return weekLines

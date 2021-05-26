@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from lanAndLat import getLonAndLat
+from utilities import getLonAndLat
 
 lon, lat = getLonAndLat()
 fipsDf = pd.read_csv('files/fips.csv')
