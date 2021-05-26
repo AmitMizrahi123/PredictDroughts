@@ -2,7 +2,6 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-# Function that return fips data
 response = requests.get(r'https://www.nrcs.usda.gov/wps/portal/nrcs/detail/?cid=nrcs143_013696')
 soup = BeautifulSoup(response.content, "html.parser")
 table = soup.find("table", attrs={"class": "data"})

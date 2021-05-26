@@ -2,21 +2,11 @@ import os, json, urllib, requests, webbrowser
 from bs4 import BeautifulSoup
 import pandas as pd
 from tqdm import tqdm
+from lanAndLat import getLonAndLat
 
 output = "JSON"
 
-def getLonAndLat():
-    url = r'https://developers.google.com/public-data/docs/canonical/states_csv'
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    div = soup.find('table')
-    table = pd.read_html(str(div))[0]
-    table.sort_values('name', ascending=True, inplace=True)
-    return table
-
-df = getLonAndLat()
-lon = df['longitude'].to_list()
-lat = df['latitude'].to_list()
+lon, lat = getLonAndLat()
 locations = list(zip(lat, lon))
 # locations = [(32.318231, -86.902298)]
 

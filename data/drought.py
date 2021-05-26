@@ -40,18 +40,21 @@ class Droughts:
     def getData(self):
         self.iterState = 0
         data = []
+        fipsDf = pd.read_csv('files/fips.csv')
         for state in self.states:
             self.changeState()
-            data.append(self.getDataForState())
+            data.append(self.getDataForState(fipsDf))
             self.iterState += 1
         return data
 
-    def getDataForState(self):
+    def getDataForState(self, fipsDf):
         html = self.driver.page_source
         soup = BeautifulSoup(html, 'html.parser')
         div = soup.select_one("#datatabl")
         table = pd.read_html(str(div))[0]
         table.insert(0, 'State', self.states[self.iterState], True)
+        table.insert(1, 'Postal code', fipsDf['postal code'][self.iterState], True)
+        table.insert(2, 'Fips', fipsDf['fips'][self.iterState], True)
         return table
 
 dataframe = pd.DataFrame()
