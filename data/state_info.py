@@ -1,8 +1,10 @@
 import pandas as pd
+import numpy as np
 import requests
 from bs4 import BeautifulSoup
-from utilities import getLonAndLat
+from utilities import getLonAndLat, returnNumberOfWeeks
 
+numberOfWeeks = returnNumberOfWeeks()
 lon, lat = getLonAndLat()
 fipsDf = pd.read_csv('files/fips.csv')
 
@@ -20,14 +22,18 @@ table = table.drop(table.index[[2, 35, 47]])
 table.reset_index(drop=True, inplace=True)
 table = table.drop(columns='Total area[2]', level=0)
 
-aland = [float(x) * 1000 for x in table['Land area[2]']['km2']]
-awater = [float(x) * 1000 for x in table['Water[2]']['km2']]
-aland_sqmi = [float(x) * 0.62 for x in table['Land area[2]']['sq mi']]
-awater_sqmi = [float(x) * 0.62 for x in table['Water[2]']['sq mi']]
+geoID = [x for x in fipsDf['fips']] * numberOfWeeks
+states = [x for x in table['State']['State']] * numberOfWeeks
+aland = [float(x) * 1000 for x in table['Land area[2]']['km2']] * numberOfWeeks
+awater = [float(x) * 1000 for x in table['Water[2]']['km2']] * numberOfWeeks
+aland_sqmi = [float(x) * 0.62 for x in table['Land area[2]']['sq mi']] * numberOfWeeks
+awater_sqmi = [float(x) * 0.62 for x in table['Water[2]']['sq mi']] * numberOfWeeks
+lon = [x for x in lon] * numberOfWeeks
+lat = [x for x in lat] * numberOfWeeks
 
 data = {
-    'GeoId': fipsDf['fips'],
-    'State': table['State']['State'],
+    'GeoId': geoID,
+    'State': states,
     'Aland': aland,
     'Awater': awater,
     'Aland_SQMI': aland_sqmi,
@@ -37,5 +43,7 @@ data = {
 }
 
 df = pd.DataFrame(data)
+df = df.sort_values('State')
+df = df.reset_index(drop=True)
 
 df.to_csv('files/state_info.csv')

@@ -27,6 +27,7 @@ class Droughts:
         self.driver.find_element_by_xpath("//li[@class='active-result' and text()='State']").click()
         self.driver.find_element_by_name("datatabl_length").click()
         self.driver.find_element_by_xpath("//select[@name='datatabl_length']/option[text()='All']").click()
+        self.driver.find_element_by_xpath("//th[text()='Week']").click()
         selectElement = self.driver.find_element_by_id("asel")
         self.states = [elem.get_attribute("textContent") for elem in selectElement.find_elements_by_tag_name("option")]
     
