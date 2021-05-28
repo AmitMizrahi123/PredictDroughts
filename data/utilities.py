@@ -17,7 +17,17 @@ def returnLastWeekDate():
     df = pd.read_csv('files/drought.csv')
     return df['Week'][0]
 
+def returnFirstWeekDate():
+    df = pd.read_csv('files/drought.csv')
+    firstWeek = returnNumberOfWeeks()
+    return df['Week'][firstWeek]
+
 def returnNumberOfWeeks():
     df = pd.read_csv('files/drought.csv')
     weekLines = len(df.loc[df['State'] == 'Alabama'])
     return weekLines
+
+def returnStates():
+    df = pd.read_csv('files/fips.csv')
+    states = df['state name']
+    return states
