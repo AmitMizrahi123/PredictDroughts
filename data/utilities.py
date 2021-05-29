@@ -13,14 +13,14 @@ def getLonAndLat():
     lat = table['latitude'].to_list()
     return lon, lat
 
-def returnLastWeekDate():
+def returnFirstWeekDate():
     df = pd.read_csv('files/drought.csv')
     return df['Week'][0]
 
-def returnFirstWeekDate():
+def returnLastWeekDate():
     df = pd.read_csv('files/drought.csv')
     firstWeek = returnNumberOfWeeks()
-    return df['Week'][firstWeek]
+    return df['Week'][firstWeek - 1]
 
 def returnNumberOfWeeks():
     df = pd.read_csv('files/drought.csv')
@@ -31,3 +31,9 @@ def returnStates():
     df = pd.read_csv('files/fips.csv')
     states = df['state name']
     return states
+
+def returnYears():
+    df = pd.read_csv('files/drought.csv')
+    dates = df['Week'].drop_duplicates()
+    year = [x[:4] for x in dates]
+    return list(set(year))
