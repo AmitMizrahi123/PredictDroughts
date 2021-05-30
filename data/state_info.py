@@ -1,8 +1,7 @@
 import pandas as pd
-import numpy as np
 import requests
 from bs4 import BeautifulSoup
-from utilities import getLonAndLat, returnNumberOfWeeks
+from data.utilities import getLonAndLat, returnNumberOfWeeks
 
 numberOfWeeks = returnNumberOfWeeks()
 lon, lat = getLonAndLat()

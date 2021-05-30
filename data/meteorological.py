@@ -1,7 +1,6 @@
-import os, json, urllib, requests, webbrowser
-from bs4 import BeautifulSoup
+import json, requests
 import pandas as pd
-from utilities import getLonAndLat, returnLastWeekDate
+from data.utilities import getLonAndLat, returnLastWeekDate
 
 output = "JSON"
 
