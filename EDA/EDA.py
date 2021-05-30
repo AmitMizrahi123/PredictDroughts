@@ -1,10 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-import seaborn as sns
-from data.utilities import returnStates
 
-states = returnStates()
 df = pd.read_csv('files/merge.csv')
 df['Week'] = pd.to_datetime(df['Week'], infer_datetime_format=True)
 
