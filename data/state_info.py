@@ -23,20 +23,20 @@ table = table.drop(columns='Total area[2]', level=0)
 
 geoID = [x for x in fipsDf['fips']] * numberOfWeeks
 states = [x for x in table['State']['State']] * numberOfWeeks
-aland = [float(x) * 1000 for x in table['Land area[2]']['km2']] * numberOfWeeks
-awater = [float(x) * 1000 for x in table['Water[2]']['km2']] * numberOfWeeks
-aland_sqmi = [float(x) * 0.62 for x in table['Land area[2]']['sq mi']] * numberOfWeeks
-awater_sqmi = [float(x) * 0.62 for x in table['Water[2]']['sq mi']] * numberOfWeeks
+# aland = [float(x) * 1000 for x in table['Land area[2]']['km2']] * numberOfWeeks
+# awater = [float(x) * 1000 for x in table['Water[2]']['km2']] * numberOfWeeks
+# aland_sqmi = [float(x) * 0.62 for x in table['Land area[2]']['sq mi']] * numberOfWeeks
+# awater_sqmi = [float(x) * 0.62 for x in table['Water[2]']['sq mi']] * numberOfWeeks
 lon = [x for x in lon] * numberOfWeeks
 lat = [x for x in lat] * numberOfWeeks
 
 data = {
     'GeoId': geoID,
     'State': states,
-    'Aland': aland,
-    'Awater': awater,
-    'Aland_SQMI': aland_sqmi,
-    'Awater_SQMI': awater_sqmi,
+    #'Aland': aland,
+    #'Awater': awater,
+    #'Aland_SQMI': aland_sqmi,
+    #'Awater_SQMI': awater_sqmi,
     'Longitude': lon,
     'Latitude': lat
 }
