@@ -1,9 +1,19 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
+import seaborn as sns
 
-df = pd.read_csv('files/merge.csv')
+df = pd.read_csv('files/merge.csv', index_col=0)
 df['Week'] = pd.to_datetime(df['Week'], infer_datetime_format=True)
+
+fig=plt.figure(figsize=(12,10),dpi=100)
+gs=fig.add_gridspec(1,1)
+ax0=fig.add_subplot(gs[0,0])
+g = sns.heatmap(df[["PRECTOT", "WS10M_MIN", "QV2M","T2M_RANGE","WS10M","T2M","WS50M_MIN",
+                        "T2M_MAX","WS50M","TS", "WS50M_RANGE","WS50M_MAX","WS10M_MAX","WS10M_RANGE",
+                        "PS","T2MDEW", "T2M_MIN", "T2MWET"]].corr(), ax=ax0, annot=True, 
+                        fmt=".2f", cmap="coolwarm")
+plt.show()
 
 df.LEVEL.value_counts().head(5).plot(kind='bar', color='blue', alpha=0.5)
 plt.xlabel('LEVEL')
@@ -41,7 +51,6 @@ ax.scatter(df.Latitude[df.LEVEL == 4], df.Longitude[df.LEVEL == 4], c='pink')
 plt.title('The most droughts that ever happened')
 plt.xlabel('Latitude')
 plt.ylabel('Longitude')
-ax.legend(bbox_to_anchor=(1.0, .5), prop={'size': 12})
 plt.show()
 
 stateLevel4 = df.State[df['LEVEL'] == 4]
