@@ -1,2 +1,0 @@
-# PredictDroughts
-Predict Droughts
